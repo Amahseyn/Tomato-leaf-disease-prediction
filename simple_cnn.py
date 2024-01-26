@@ -2,7 +2,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import matplotlib.pyplot as plt
-
+import numpy as np 
 
 img_width, img_height = 128, 128
 batch_size = 64
@@ -34,13 +34,18 @@ val_generator = val_datagen.flow_from_directory(
     batch_size=batch_size,
     class_mode='categorical'
 )
-#Visualize data before start training
+
+
+
 sample_images, sample_labels = next(train_generator)
+class_names = list(train_generator.class_indices.keys())
 plt.figure(figsize=(10, 10))
 for i in range(9):
     plt.subplot(3, 3, i + 1)
     plt.imshow(sample_images[i])
-    plt.title(f'Class: {sample_labels[i]}')
+    class_index = np.argmax(sample_labels[i])
+    class_name = class_names[class_index]
+    plt.title(f'Class: {class_name}')
     plt.axis('off')
 plt.show()
 

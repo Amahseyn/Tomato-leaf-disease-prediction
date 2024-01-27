@@ -1,0 +1,41 @@
+import os
+from sklearn.model_selection import train_test_split
+import shutil
+
+# Set the path to your 'train' folder
+train_folder = '/content/drive/MyDrive/tomato/train'
+
+# Set the path to create 'test' folder
+test_folder = '/content/drive/MyDrive/tomato/test'
+
+# List all the classes in the 'train' folder
+class_folders = [os.path.join(train_folder, c) for c in os.listdir(train_folder) if os.path.isdir(os.path.join(train_folder, c))]
+
+# Create the 'test' folder if it doesn't exist
+if not os.path.exists(test_folder):
+    os.makedirs(test_folder)
+
+# Loop through each class folder and split 100 images for testing
+for class_folder in class_folders:
+    class_name = os.path.basename(class_folder)
+    
+    # Get the list of images for the current class
+    images = [os.path.join(class_folder, img) for img in os.listdir(class_folder)]
+    
+    # Ensure there are at least 100 images in the class folder
+    if len(images) >= 100:
+        # Split the images into training and testing sets
+        train_images, test_images = train_test_split(images, test_size=100, random_state=42)
+        
+        # Create class folders in 'test' if they don't exist
+        test_class_folder = os.path.join(test_folder, class_name)
+        if not os.path.exists(test_class_folder):
+            os.makedirs(test_class_folder)
+        
+        # Move images to the 'test' folder
+        for test_image in test_images:
+            shutil.move(test_image, os.path.join(test_class_folder, os.path.basename(test_image)))
+    else:
+        print(f"Skipping {class_name} as it has less than 100 images.")
+
+print("Data split successfully!")

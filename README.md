@@ -11,3 +11,4 @@ The tflite model size is less than 500kb and you can use it in every Raspberry P
 ## Result 
 <img src="https://github.com/Amahseyn/Tomato-leaf-disease-prediction/blob/main/acc.png" align="center" height="300" width="400"/>
 <img src="https://github.com/Amahseyn/Tomato-leaf-disease-prediction/blob/main/loss.png" align="center" height="300" width="400"/>
+<img src="https://github.com/Amahseyn/Tomato-leaf-disease-prediction/blob/main/output.png" align="center" height="600" width="400"/>
